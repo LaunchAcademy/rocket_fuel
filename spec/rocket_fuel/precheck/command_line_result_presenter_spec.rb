@@ -13,19 +13,19 @@ describe RocketFuel::Precheck::CommandLineResultPresenter do
 
   it 'includes the message' do
     message = 'clearance granted.'
-    result = RocketFuel::Precheck::CheckResult.new(true, message)
+    result = RocketFuel::Precheck::CheckResult.new(true, message, :something)
     presented_result = RocketFuel::Precheck::CommandLineResultPresenter.new(result)
     expect(capture(:stdout) { presented_result.present }).to include(message)
   end
 
   it 'starts with a success icon if the result is successful' do
-    result = RocketFuel::Precheck::CheckResult.new(true, 'clearance granted.')
+    result = RocketFuel::Precheck::CheckResult.new(true, 'clearance granted.', :something)
     presented_result = RocketFuel::Precheck::CommandLineResultPresenter.new(result)
     expect(capture(:stdout) { presented_result.present }).to include(success_icon)
   end
 
   it 'starts with a failure icon if the result is not successful' do
-    result = RocketFuel::Precheck::CheckResult.new(false, 'clearance granted.')
+    result = RocketFuel::Precheck::CheckResult.new(false, 'clearance granted.', :something)
     presented_result = RocketFuel::Precheck::CommandLineResultPresenter.new(result)
     expect(capture(:stdout) { presented_result.present }).to include(failure_icon)
   end

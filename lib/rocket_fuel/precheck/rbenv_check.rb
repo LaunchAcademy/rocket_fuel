@@ -3,6 +3,8 @@ require 'rocket_fuel/precheck/check'
 module RocketFuel
   module Precheck
     class RbenvCheck < Check
+      check_name :rbenv
+      
       def ok?
         !home_path_exists? && !global_path_exists?
       end

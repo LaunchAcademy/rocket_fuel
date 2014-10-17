@@ -3,6 +3,8 @@ require 'rocket_fuel/precheck/check'
 module RocketFuel
   module Precheck
     class RvmCheck < Check
+      check_name :rvm
+      
       def ok?
         !home_path_exists? && !global_path_exists?
       end

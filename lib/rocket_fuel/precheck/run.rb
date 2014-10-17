@@ -9,6 +9,7 @@ module RocketFuel
   module Precheck
     class Run
       def results
+        failed_checks = []
         res = [
           RocketFuel::Precheck::CommandLineToolCheck,
           RocketFuel::Precheck::MacportsCheck,
@@ -19,6 +20,16 @@ module RocketFuel
         end
         res.each do |r|
           CommandLineResultPresenter.new(r).present
+          if !r.ok?
+            failed_checks << r.check_name
+          end
+        end
+
+
+        if !failed_checks.empty?
+          say('***YOU ARE NOT CLEARED FOR INSTALLATION***', :red)
+
+
         end
       end
     end

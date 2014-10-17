@@ -3,6 +3,8 @@ require 'rocket_fuel/precheck/check'
 module RocketFuel
   module Precheck
     class MacportsCheck < Check
+      check_name :macports
+      
       def ok?
         !blacklisted_files_not_found?
       end

@@ -8,11 +8,21 @@ module RocketFuel
       end
 
       def run
-        CheckResult.new(ok?, message)
+        CheckResult.new(ok?, message, self.class.check_name_value)
       end
 
       def message
         ok? ? success_message : failure_message
+      end
+
+      class << self
+        def check_name(sym)
+          @check_name = sym
+        end
+
+        def check_name_value
+          @check_name
+        end
       end
 
       protected
