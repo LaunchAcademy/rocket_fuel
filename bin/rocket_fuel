@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require 'thor'
+require 'rocket_fuel'
+
+require 'rocket_fuel/command_line_interface'
+
+RocketFuel::CommandLineInterface.start(ARGV)
