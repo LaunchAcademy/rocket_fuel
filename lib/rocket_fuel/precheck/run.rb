@@ -7,7 +7,8 @@ module RocketFuel
     class Run
       def results
         res = [
-          RocketFuel::Precheck::CommandLineToolCheck
+          RocketFuel::Precheck::CommandLineToolCheck,
+          RocketFuel::Precheck::RvmCheck
         ].map do |klass|
           klass.new.run
         end
