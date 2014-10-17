@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-require 'rocket_fuel/precheck'
+require 'rocket_fuel/precheck/check_result'
 
 describe RocketFuel::Precheck::CheckResult do
   it 'has a boolean result' do

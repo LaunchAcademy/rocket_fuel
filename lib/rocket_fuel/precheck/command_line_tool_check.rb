@@ -1,3 +1,5 @@
+require 'rocket_fuel/precheck/check'
+
 module RocketFuel
   module Precheck
     class CommandLineToolCheck < Check

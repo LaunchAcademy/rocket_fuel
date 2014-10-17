@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-require 'rocket_fuel/precheck'
+require 'rocket_fuel/precheck/command_line_result_presenter'
 
 describe RocketFuel::Precheck::CommandLineResultPresenter do
   let(:success_icon) do

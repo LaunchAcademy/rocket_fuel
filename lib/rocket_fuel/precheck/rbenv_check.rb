@@ -2,28 +2,29 @@ require 'rocket_fuel/precheck/check'
 
 module RocketFuel
   module Precheck
-    class RvmCheck < Check
+    class RbenvCheck < Check
       def ok?
         !home_path_exists? && !global_path_exists?
       end
 
       class << self
         def home_path
-          File.join(ENV['HOME'], '.rvm')
+          File.join(ENV['HOME'], '.rbenv')
         end
 
+        #homebrew recommended, alternative path
         def global_path
-          '/usr/local/rvm'
+          '/usr/local/var/rbenv'
         end
       end
 
       protected
       def success_message
-        "RVM NOT found."
+        "rbenv NOT found."
       end
 
       def failure_message
-        "RVM found!"
+        "rbenv found!"
       end
 
       def home_path_exists?

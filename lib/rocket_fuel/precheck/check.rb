@@ -1,3 +1,5 @@
+require 'rocket_fuel/precheck/check_result'
+
 module RocketFuel
   module Precheck
     class Check

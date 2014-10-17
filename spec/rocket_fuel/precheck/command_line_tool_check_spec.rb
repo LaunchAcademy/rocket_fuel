@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-require 'rocket_fuel/precheck'
+require 'rocket_fuel/precheck/command_line_tool_check'
 
 require 'fakefs'
 require 'fakefs/spec_helpers'
