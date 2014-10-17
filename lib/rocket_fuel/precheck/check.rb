@@ -11,6 +11,10 @@ module RocketFuel
         CheckResult.new(ok?, message, self.class.check_name_value)
       end
 
+      def check?
+        true
+      end
+
       def message
         ok? ? success_message : failure_message
       end

@@ -16,12 +16,19 @@ module RocketFuel
           RocketFuel::Precheck::RvmCheck,
           RocketFuel::Precheck::RbenvCheck
         ].map do |klass|
-          klass.new.run
+          run = klass.new
+          if run.check?
+            klass.new.run
+          else
+            nil
+          end
         end
         res.each do |r|
-          CommandLineResultPresenter.new(r).present
-          if !r.ok?
-            failed_checks << r.check_name
+          if !r.nil?
+            CommandLineResultPresenter.new(r).present
+            if !r.ok?
+              failed_checks << r.check_name
+            end
           end
         end
 

@@ -53,4 +53,10 @@ describe RocketFuel::Precheck::CommandLineToolCheck do
       expect(check).to_not be_ok
     end
   end
+
+  it 'does not check for operating systems other than the mac' do
+    check = RocketFuel::Precheck::CommandLineToolCheck.new
+    RocketFuel::SystemDetails.stubs(:os).returns(:linux)
+    expect(check).to_not be_check
+  end
 end
