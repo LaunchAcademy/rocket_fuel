@@ -1,19 +1,13 @@
+require 'rocket_fuel/fix/file_sanitizer_fix'
+
 module RocketFuel
   module Fix
-    class RvmFix < AbstractFix
+    class RvmFix < FileSanitizerFix
       fix_name :rvm
       register!
 
-      def run
-        [
-          RocketFuel::Precheck::RvmCheck.home_path,
-          RocketFuel::Precheck::RvmCheck.global_path
-        ].each do |path|
-          if FileTest.exist?(path)
-            FileUtils.rm_rf(path)
-          end
-        end
-      end
+      remove_file RocketFuel::Precheck::RvmCheck.home_path
+      remove_file RocketFuel::Precheck::RvmCheck.global_path
 
       def title
         'RVM must be removed for Rocket Fuel to function properly'
