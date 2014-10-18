@@ -1,3 +1,5 @@
+require 'thor'
+
 require 'rocket_fuel/precheck/command_line_result_presenter'
 
 require 'rocket_fuel/precheck/command_line_tool_check'
@@ -8,6 +10,7 @@ require 'rocket_fuel/precheck/macports_check'
 module RocketFuel
   module Precheck
     class Run
+      include Thor::Base
       def results
         failed_checks = []
         res = [
@@ -23,6 +26,7 @@ module RocketFuel
             nil
           end
         end
+
         res.each do |r|
           if !r.nil?
             CommandLineResultPresenter.new(r).present
@@ -33,10 +37,17 @@ module RocketFuel
         end
 
 
+        say('')
+        say('========================')
+        say('')
+
         if !failed_checks.empty?
           say('***YOU ARE NOT CLEARED FOR INSTALLATION***', :red)
 
-
+        else
+          say('***Congratulations! You\'re cleared to install with Rocket Fuel***', :green)
+          say('')
+          say('Run `rocket_fuel install` to proceed.')
         end
       end
     end
