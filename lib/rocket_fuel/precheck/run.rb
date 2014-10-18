@@ -7,35 +7,23 @@ require 'rocket_fuel/precheck/rvm_check'
 require 'rocket_fuel/precheck/rbenv_check'
 require 'rocket_fuel/precheck/macports_check'
 
+require 'rocket_fuel/fix'
+
 module RocketFuel
   module Precheck
     class Run
       include Thor::Base
       def results
         failed_checks = []
-        res = [
-          RocketFuel::Precheck::CommandLineToolCheck,
-          RocketFuel::Precheck::MacportsCheck,
-          RocketFuel::Precheck::RvmCheck,
-          RocketFuel::Precheck::RbenvCheck
-        ].map do |klass|
-          run = klass.new
-          if run.check?
-            klass.new.run
-          else
-            nil
-          end
-        end
-
-        res.each do |r|
-          if !r.nil?
-            CommandLineResultPresenter.new(r).present
-            if !r.ok?
-              failed_checks << r.check_name
+        RocketFuel::Precheck.checks.each do |key, klass|
+          check = klass.new
+          if check.check?
+            CommandLineResultPresenter.new(check).present
+            if !check.ok?
+              failed_checks << key
             end
           end
         end
-
 
         say('')
         say('========================')
@@ -43,7 +31,21 @@ module RocketFuel
 
         if !failed_checks.empty?
           say('***YOU ARE NOT CLEARED FOR INSTALLATION***', :red)
+          say('')
 
+          failed_checks.each do |sym|
+            if RocketFuel::Precheck.fixes[sym]
+              fix = RocketFuel::Precheck.fixes[sym].new
+              say("#{fix.title}", :red)
+              say('')
+              print_wrapped(fix.message, :indent => 2)
+
+              say('')
+              print_wrapped("Rocket Fuel can tackle this for you. " +
+                "Invoke `rocket_fuel fix #{sym}` to resolve this issue.",
+                :indent => 2)
+            end
+          end
         else
           say('***Congratulations! You\'re cleared to install with Rocket Fuel***', :green)
           say('')

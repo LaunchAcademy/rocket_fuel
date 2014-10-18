@@ -4,7 +4,8 @@ module RocketFuel
   module Precheck
     class RbenvCheck < Check
       check_name :rbenv
-      
+      register!
+
       def ok?
         !home_path_exists? && !global_path_exists?
       end

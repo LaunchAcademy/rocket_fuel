@@ -4,7 +4,8 @@ module RocketFuel
   module Precheck
     class MacportsCheck < Check
       check_name :macports
-      
+      register!
+
       def ok?
         !blacklisted_files_not_found?
       end

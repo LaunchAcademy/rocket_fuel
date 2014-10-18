@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-require 'rocket_fuel/precheck/check'
+require 'rocket_fuel/precheck'
 
 describe RocketFuel::Precheck::Check do
   let(:check) { RocketFuel::Precheck::Check.new }

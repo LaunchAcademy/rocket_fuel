@@ -11,7 +11,8 @@ module RocketFuel
       end
 
       def present
-        say([icon, @result.message].join(" "), color)
+        print_wrapped(set_color([icon, @result.message].join(" "), color),
+          :indent => 2)
       end
 
       protected

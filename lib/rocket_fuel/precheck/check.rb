@@ -1,3 +1,4 @@
+require 'rocket_fuel/precheck'
 require 'rocket_fuel/precheck/check_result'
 
 module RocketFuel
@@ -26,6 +27,10 @@ module RocketFuel
 
         def check_name_value
           @check_name
+        end
+
+        def register!
+          RocketFuel::Precheck.register_check(self)
         end
       end
 

@@ -4,6 +4,7 @@ module RocketFuel
   module Precheck
     class CommandLineToolCheck < Check
       check_name :command_line_tools
+      register!
 
       TEN_NINE_RECEIPT_PATH = '/var/db/receipts/com.apple.pkg.CLTools_Executables.bom'
       DEFAULT_RECEIPT_PATH = '/var/db/receipts/com.apple.pkg.DeveloperToolsCLI.bom'
