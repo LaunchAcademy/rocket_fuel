@@ -25,4 +25,9 @@ describe RocketFuel::Precheck::MacportsCheck do
     FileUtils.mkdir_p(path)
     expect(check.message).to match(/found/i)
   end
+
+  it 'does not check if not run on a Mac' do
+    RocketFuel::SystemDetails.stubs(:os).returns(:linux)
+    expect(check).to_not be_check
+  end
 end

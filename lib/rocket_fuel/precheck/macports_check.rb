@@ -10,6 +10,10 @@ module RocketFuel
         !blacklisted_files_not_found?
       end
 
+      def check?
+        RocketFuel::SystemDetails.platform_family?(:mac)
+      end
+
       class << self
         def bin_path
           '/opt/local/bin/port'
