@@ -1,31 +1,18 @@
-require 'rbconfig'
+require 'rocket_fuel/operating_system'
 
 module RocketFuel
   module SystemDetails
     class << self
       def os_version
-        if platform_family?(:mac)
-          `sw_vers -productVersion`.chomp
-        end
+        os.version
       end
 
-      # cribbed from Selenium
       def os
-        host_os = RbConfig::CONFIG['host_os']
-        case host_os
-        when /mswin|msys|mingw|cygwin|bccwin|wince|emc/
-          :windows
-        when /darwin|mac os/
-          :mac
-        when /linux/
-          :linux
-        when /solaris|bsd/
-          :unix
-        end
+        @os ||= RocketFuel::OperatingSystem.new
       end
 
       def platform_family?(platform)
-        os == platform.to_sym
+        os.platform_family?(platform)
       end
     end
   end

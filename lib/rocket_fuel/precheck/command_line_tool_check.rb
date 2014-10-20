@@ -32,7 +32,7 @@ module RocketFuel
       end
 
       def receipt_file
-        if RocketFuel::SystemDetails.os_version =~ /\A10.(9|(10))/
+        if RocketFuel::SystemDetails.os.minor_version =~ /\A10.(9|(10))/
           TEN_NINE_RECEIPT_PATH
         else
           DEFAULT_RECEIPT_PATH

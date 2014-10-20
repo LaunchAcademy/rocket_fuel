@@ -19,8 +19,9 @@ describe RocketFuel::Precheck::CommandLineToolCheck do
     '10.10'
   ].each do |os_vers|
     context "os x #{os_vers}" do
+      let(:os) { RocketFuel::OperatingSystem.new('darwin', os_vers)}
       before(:each) do
-        RocketFuel::SystemDetails.stubs(:os_version).returns(os_vers)
+        RocketFuel::SystemDetails.stubs(:os).returns(os)
       end
 
       let(:check) { RocketFuel::Precheck::CommandLineToolCheck.new }
@@ -43,12 +44,13 @@ describe RocketFuel::Precheck::CommandLineToolCheck do
 
   context 'os x 10.8' do
     before(:each) do
-      RocketFuel::SystemDetails.stubs(:os_version).returns('10.8.4')
+      os = RocketFuel::OperatingSystem.new('darwin', '10.8.4')
+      RocketFuel::SystemDetails.stubs(:os).returns(os)
     end
 
     let(:check) { RocketFuel::Precheck::CommandLineToolCheck.new }
     let(:path) { RocketFuel::Precheck::CommandLineToolCheck::DEFAULT_RECEIPT_PATH }
-    
+
     it 'is ok if the receipt file is found' do
       FileUtils.touch(path)
       expect(check).to be_ok
@@ -60,13 +62,10 @@ describe RocketFuel::Precheck::CommandLineToolCheck do
     end
   end
 
-  context 'os x 10.10' do
-
-  end
-
   it 'does not check for operating systems other than the mac' do
     check = RocketFuel::Precheck::CommandLineToolCheck.new
-    RocketFuel::SystemDetails.stubs(:os).returns(:linux)
+    os = RocketFuel::OperatingSystem.new('linux', '2.6')
+    RocketFuel::SystemDetails.stubs(:os).returns(os)
     expect(check).to_not be_check
   end
 end

@@ -27,7 +27,8 @@ describe RocketFuel::Precheck::MacportsCheck do
   end
 
   it 'does not check if not run on a Mac' do
-    RocketFuel::SystemDetails.stubs(:os).returns(:linux)
+    os = RocketFuel::OperatingSystem.new('linux', '2.6')
+    RocketFuel::SystemDetails.stubs(:os).returns(os)
     expect(check).to_not be_check
   end
 end
