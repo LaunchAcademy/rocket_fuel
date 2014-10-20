@@ -14,25 +14,30 @@ describe RocketFuel::Precheck::CommandLineToolCheck do
   end
 
   let(:path) { RocketFuel::Precheck::CommandLineToolCheck::TEN_NINE_RECEIPT_PATH }
-  context 'os x 10.9' do
-    before(:each) do
-      RocketFuel::SystemDetails.stubs(:os_version).returns('10.9.4')
-    end
+  [
+    '10.9.4',
+    '10.10'
+  ].each do |os_vers|
+    context "os x #{os_vers}" do
+      before(:each) do
+        RocketFuel::SystemDetails.stubs(:os_version).returns(os_vers)
+      end
 
-    let(:check) { RocketFuel::Precheck::CommandLineToolCheck.new }
-    it 'is ok if the receipt file is found' do
-      FileUtils.touch(path)
-      expect(check).to be_ok
-    end
+      let(:check) { RocketFuel::Precheck::CommandLineToolCheck.new }
+      it 'is ok if the receipt file is found' do
+        FileUtils.touch(path)
+        expect(check).to be_ok
+      end
 
-    it 'is not ok if the receipt is not found' do
-      FileUtils.rm_f(path) if FileTest.exist?(path)
-      expect(check).to_not be_ok
-    end
+      it 'is not ok if the receipt is not found' do
+        FileUtils.rm_f(path) if FileTest.exist?(path)
+        expect(check).to_not be_ok
+      end
 
-    it 'has a failure message if the receipt is not found' do
-      FileUtils.rm_f(path) if FileTest.exist?(path)
-      expect(check.run.message).to match(/not found/i)
+      it 'has a failure message if the receipt is not found' do
+        FileUtils.rm_f(path) if FileTest.exist?(path)
+        expect(check.run.message).to match(/not found/i)
+      end
     end
   end
 
@@ -43,6 +48,7 @@ describe RocketFuel::Precheck::CommandLineToolCheck do
 
     let(:check) { RocketFuel::Precheck::CommandLineToolCheck.new }
     let(:path) { RocketFuel::Precheck::CommandLineToolCheck::DEFAULT_RECEIPT_PATH }
+    
     it 'is ok if the receipt file is found' do
       FileUtils.touch(path)
       expect(check).to be_ok
@@ -52,6 +58,10 @@ describe RocketFuel::Precheck::CommandLineToolCheck do
       FileUtils.rm_f(path) if FileTest.exist?(path)
       expect(check).to_not be_ok
     end
+  end
+
+  context 'os x 10.10' do
+
   end
 
   it 'does not check for operating systems other than the mac' do
