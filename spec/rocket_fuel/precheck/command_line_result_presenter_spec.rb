@@ -4,11 +4,11 @@ require 'rocket_fuel/precheck/command_line_result_presenter'
 
 describe RocketFuel::Precheck::CommandLineResultPresenter do
   let(:success_icon) do
-    RocketFuel::Precheck::CommandLineResultPresenter::SUCCESS_ICON
+    RocketFuel::Precheck::CommandLineResultPresenter::SUCCESS_ICON[0]
   end
 
   let(:failure_icon) do
-    RocketFuel::Precheck::CommandLineResultPresenter::FAILURE_ICON
+    RocketFuel::Precheck::CommandLineResultPresenter::FAILURE_ICON[0]
   end
 
   it 'includes the message' do
