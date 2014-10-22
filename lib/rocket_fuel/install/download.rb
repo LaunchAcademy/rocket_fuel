@@ -1,4 +1,5 @@
 require 'net/http'
+require 'net/https'
 require 'open-uri'
 require 'fileutils'
 
@@ -17,6 +18,7 @@ module RocketFuel
       end
 
       def extract
+        FileUtils.mkdir_p(recipe_path)
         `tar xvfz #{archive_path} -C #{File.join(recipe_path, '..') }`
       end
 
