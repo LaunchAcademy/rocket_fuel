@@ -8,8 +8,9 @@ module RocketFuel
       say '***Rocket Fuel: Checking prerequisites***', :blue
       say ''
 
-      RocketFuel::Precheck::Run.new.results
-
+      RocketFuel::Precheck::Run.new.tap do |run|
+        run.results
+      end
     end
 
     desc 'fix', 'fix problems that can cause issues with running rocket fuel'
@@ -35,6 +36,11 @@ module RocketFuel
 
     desc 'install [package]', 'install rocket fuel packages'
     def install
+      require 'rocket_fuel/install'
+      run = precheck
+      if run.ok?
+        RocketFuel::Install::Run.new.run
+      end
     end
   end
 end

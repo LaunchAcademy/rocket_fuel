@@ -13,14 +13,18 @@ module RocketFuel
   module Precheck
     class Run
       include Thor::Base
+      def ok?
+        !@failed_checks.nil? && @failed_checks.empty?
+      end
+      
       def results
-        failed_checks = []
+        @failed_checks = []
         RocketFuel::Precheck.checks.each do |key, klass|
           check = klass.new
           if check.check?
             CommandLineResultPresenter.new(check).present
             if !check.ok?
-              failed_checks << key
+              @failed_checks << key
             end
           end
         end
@@ -29,11 +33,11 @@ module RocketFuel
         say('========================')
         say('')
 
-        if !failed_checks.empty?
+        if !@failed_checks.empty?
           say('***YOU ARE NOT CLEARED FOR INSTALLATION***', :red)
           say('')
 
-          failed_checks.each do |sym|
+          @failed_checks.each do |sym|
             if RocketFuel::Precheck.fixes[sym]
               fix = RocketFuel::Precheck.fixes[sym].new
               say("#{fix.title}", :red)
