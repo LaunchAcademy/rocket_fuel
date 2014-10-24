@@ -13,7 +13,7 @@ module RocketFuel
           #sudo before the work needs to be done to improve clarity of prompt
           `sudo echo `
           `echo Y | PAGER=true hdiutil attach '#{@dmg_path}' -quiet `
-          `sudo installer -pkg '/Volumes/#{volumes_dir}/#{pkg_name}.pkg' -target /`
+          `sudo installer -pkg '/Volumes/#{volume_dir}/#{pkg_name}.pkg' -target /`
           `hdiutil detach '/Volumes/#{volumes_dir}' || hdiutil detach '/Volumes/#{volume_dir}' -force`
         end
 
