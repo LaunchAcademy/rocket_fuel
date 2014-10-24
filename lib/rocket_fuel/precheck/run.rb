@@ -6,6 +6,7 @@ require 'rocket_fuel/precheck/command_line_tool_check'
 require 'rocket_fuel/precheck/rvm_check'
 require 'rocket_fuel/precheck/rbenv_check'
 require 'rocket_fuel/precheck/macports_check'
+require 'rocket_fuel/precheck/curl_check'
 
 require 'rocket_fuel/fix'
 
@@ -16,7 +17,7 @@ module RocketFuel
       def ok?
         !@failed_checks.nil? && @failed_checks.empty?
       end
-      
+
       def results
         @failed_checks = []
         RocketFuel::Precheck.checks.each do |key, klass|
