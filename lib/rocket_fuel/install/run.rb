@@ -22,7 +22,8 @@ module RocketFuel
         RocketFuel::Install::ChefInstall.new.run
         say('Done.')
         say('Running rocket fuel recipes...this may take some time')
-        RocketFuel::Install::RecipeRun.new.run
+        run = RocketFuel::Install::RecipeRun.new
+        run.run
         say('Done')
       end
     end
