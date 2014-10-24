@@ -18,9 +18,15 @@ module RocketFuel
         say('Extracting rocket fuel recipes...')
         @download.extract
         say('Done.')
-        say('Installing chef omnibus. You may be prompted for your sudo password..')
-        RocketFuel::Install::ChefInstall.new.run
-        say('Done.')
+        say('Checking to see if Chef is installed...')
+        chef_install = RocketFuel::Install::ChefInstall.new
+        if chef_install.installed?
+          say('Done')
+        else
+          say('Installing chef omnibus. You may be prompted for your sudo password..')
+          chef_install.run
+          say('Done.')
+        end
         say('Running rocket fuel recipes...this may take some time')
         RocketFuel::Install::RecipeRun.new.run
         say('Done')
