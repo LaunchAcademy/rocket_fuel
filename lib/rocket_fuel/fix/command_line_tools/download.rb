@@ -18,7 +18,7 @@ module RocketFuel
 
         protected
         def os_minor
-          RocketFuel::SystemDetails.os_version.gsub(/\.*\Z/, '')
+          RocketFuel::SystemDetails.os.minor_version
         end
 
         def base_host
