@@ -2,12 +2,13 @@ on run argv
 	tell application "Safari"
 		activate
 
-		set apple_id to the text returned of (display dialog "Rocket Fuel: please enter your AppleID email:" with title "Apple ID" default answer "" buttons {"OK"} default button 1)
+		open location "https://developer.apple.com/downloads/index.action"
+
+		set apple_id to the text returned of (display dialog "Rocket Fuel: please enter your AppleID email:" with title "Apple ID" with icon caution default answer "" buttons {"OK"} default button 1)
 		set apple_password to the text returned of (display dialog "Rocket Fuel: please enter your AppleID password:" with title "Password" with icon caution default answer "" buttons {"OK"} default button 1 with hidden answer)
 
-		open location "https://developer.apple.com/downloads/index.action"
 		delay 3 -- this is a delay to allow the page to start loading
-		--wait till it's loaded
+		--wait until it's loaded
 		set pageLoaded to false -- this initialises the pageLoaded variable that gets set below
 		repeat while not pageLoaded -- keep doing this loop until loading complete
 			if (do JavaScript "document.readyState" in current tab of window 1) is "complete" then
@@ -52,6 +53,16 @@ on run argv
 				function(){ return typeof jQuery == 'function'},
 				fillInForm);
 		" in current tab of window 1
+		delay 3 -- this is a delay to allow the page to start loading
+		--wait until it's loaded
+		set pageLoaded to false -- this initialises the pageLoaded variable that gets set below
+		repeat while not pageLoaded -- keep doing this loop until loading complete
+			if (do JavaScript "document.readyState" in current tab of window 1) is "complete" then
+				set pageLoaded to true
+			else
+				delay 3 -- you can try adjusting this delay
+			end if
+		end repeat
 		open location item 1 of argv
 		display dialog "Download initiated...navigate back to your terminal and await completion"
 	end tell

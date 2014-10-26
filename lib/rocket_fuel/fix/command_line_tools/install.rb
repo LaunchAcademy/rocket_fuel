@@ -14,7 +14,7 @@ module RocketFuel
           `sudo echo `
           `echo Y | PAGER=true hdiutil attach '#{@dmg_path}' -quiet `
           `sudo installer -pkg '/Volumes/#{volume_dir}/#{pkg_name}.pkg' -target /`
-          `hdiutil detach '/Volumes/#{volumes_dir}' || hdiutil detach '/Volumes/#{volume_dir}' -force`
+          `hdiutil detach '/Volumes/#{volume_dir}' || hdiutil detach '/Volumes/#{volume_dir}' -force`
         end
 
         protected

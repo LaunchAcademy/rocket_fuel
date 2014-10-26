@@ -29,7 +29,13 @@ module RocketFuel
         end
         say('Running rocket fuel recipes...this may take some time')
         run = RocketFuel::Install::RecipeRun.new
-        run.run
+        say('')
+        
+        if run.run
+          say("Congratuations! You're now running with RocketFuel!", :green)
+        else
+          say('Something went wrong.', :red)
+        end
         say('Done')
       end
     end
