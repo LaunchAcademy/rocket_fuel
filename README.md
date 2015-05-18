@@ -20,7 +20,11 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Install all of the things (Mac)
+
+```bash
+xcode-select --install && rocket_fuel install
+```
 
 ## Contributing
 
