@@ -1,29 +1,13 @@
 # RocketFuel
 
-TODO: Write a gem description
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'rocket_fuel'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install rocket_fuel
+Installs all the things (Ruby, Atom, etc) so that you can focus on writing code.
 
 ## Usage
 
 ### Install all of the things (Mac)
 
 ```bash
-xcode-select --install && rocket_fuel install
+$ xcode-select --install && sudo gem install rocket_fuel && rocket_fuel install
 ```
 
 ## Contributing
