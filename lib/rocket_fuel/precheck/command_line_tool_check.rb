@@ -6,6 +6,7 @@ module RocketFuel
       check_name :command_line_tools
       register!
 
+      TEN_ELEVEN_RECEIPT_PATH = '/System/Library/Receipts/com.apple.pkg.CLTools_Executables.bom'
       TEN_NINE_RECEIPT_PATH = '/var/db/receipts/com.apple.pkg.CLTools_Executables.bom'
       DEFAULT_RECEIPT_PATH = '/var/db/receipts/com.apple.pkg.DeveloperToolsCLI.bom'
 
@@ -32,7 +33,9 @@ module RocketFuel
       end
 
       def receipt_file
-        if RocketFuel::SystemDetails.os.minor_version =~ /\A10.(9|(10))/
+        if RocketFuel::SystemDetails.os.minor_version =~ /\A10.11/
+          TEN_ELEVEN_RECEIPT_PATH
+        elsif RocketFuel::SystemDetails.os.minor_version =~ /\A10.(9|(10))/
           TEN_NINE_RECEIPT_PATH
         else
           DEFAULT_RECEIPT_PATH
