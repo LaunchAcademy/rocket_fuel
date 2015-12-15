@@ -7,6 +7,7 @@ require 'rocket_fuel/precheck/rvm_check'
 require 'rocket_fuel/precheck/rbenv_check'
 require 'rocket_fuel/precheck/macports_check'
 require 'rocket_fuel/precheck/curl_check'
+require 'rocket_fuel/precheck/brew_check'
 
 require 'rocket_fuel/fix'
 
