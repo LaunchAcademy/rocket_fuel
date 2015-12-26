@@ -7,8 +7,9 @@ module RocketFuel
     class Run
       include Thor::Base
 
-      def initialize
+      def initialize(options = {})
         @download = RocketFuel::Install::Download.new
+        @options = options
       end
 
       def run
@@ -28,9 +29,9 @@ module RocketFuel
           say('Done.')
         end
         say('Running rocket fuel recipes...this may take some time')
-        run = RocketFuel::Install::RecipeRun.new
+        run = RocketFuel::Install::RecipeRun.new(options)
         say('')
-        
+
         if run.run
           say("Congratuations! You're now running with RocketFuel!", :green)
         else
