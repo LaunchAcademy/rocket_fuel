@@ -36,10 +36,10 @@ module RocketFuel
 
     desc 'install [package]', 'install rocket fuel packages'
     option :vagrant, :type => :boolean, :default => false
+    option :force, :type => :boolean, :default => false
     def install
       require 'rocket_fuel/install'
-      run = precheck
-      if run.ok?
+      if options[:force] || precheck.ok?
         RocketFuel::Install::Run.new(options).run
       end
     end
