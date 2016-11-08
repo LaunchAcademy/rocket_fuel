@@ -2,12 +2,17 @@ require 'spec_helper'
 
 require 'rocket_fuel/precheck/command_line_tool_check'
 
-require 'fakefs'
+require 'pp'
+require 'fakefs/safe'
 require 'fakefs/spec_helpers'
 require 'fileutils'
 
 describe RocketFuel::Precheck::CommandLineToolCheck do
   include FakeFS::SpecHelpers
+
+  before(:each) do
+    RocketFuel::SystemCall.stubs(:make).returns(false)
+  end
 
   context "os x 10.11" do
     before(:each) do
@@ -21,6 +26,11 @@ describe RocketFuel::Precheck::CommandLineToolCheck do
 
     it 'is ok if the receipt file is found' do
       FileUtils.touch(path)
+      expect(check).to be_ok
+    end
+
+    it 'is ok if a system call to xcode says so' do
+      RocketFuel::SystemCall.expects(:make).returns(true)
       expect(check).to be_ok
     end
 

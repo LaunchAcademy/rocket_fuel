@@ -1,4 +1,5 @@
 require 'rocket_fuel/precheck/check'
+require 'rocket_fuel/system_call'
 
 module RocketFuel
   module Precheck
@@ -29,7 +30,11 @@ module RocketFuel
       end
 
       def installed?
-        FileTest.exist?(receipt_file)
+        FileTest.exist?(receipt_file) || clt_prints?
+      end
+
+      def clt_prints?
+        RocketFuel::SystemCall.make("xcode-select -p")
       end
 
       def receipt_file
